@@ -31,7 +31,7 @@ class cuiResourceBrowser(asciimatics.widgets.MultiColumnListBox):
         """
         super(cuiResourceBrowser, self).__init__(
             height,
-            [0, '>8', '>14', '>32'],
+            [0, '>8', '>14', '>20'],
             [],
             titles=['', 'Name', 'Type', 'Description'],
             name=name)

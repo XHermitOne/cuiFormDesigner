@@ -5,16 +5,50 @@
 Designer resource editor control.
 """
 
+import collections
 import asciimatics.widgets
+import asciimatics.screen
 
 from . import resource_browser
 from . import property_editor
 
 __version__ = (0, 0, 0, 1)
 
+DEFAULT_RESOURCE_EDITOR_THEME = collections.defaultdict(
+    lambda: (asciimatics.screen.Screen.COLOUR_BLACK,
+             asciimatics.screen.Screen.A_NORMAL,
+             asciimatics.screen.Screen.COLOUR_CYAN),
+    {
+        'label': (asciimatics.screen.Screen.COLOUR_BLACK,
+                  asciimatics.screen.Screen.A_BOLD,
+                  asciimatics.screen.Screen.COLOUR_CYAN),
+        'title': (asciimatics.screen.Screen.COLOUR_BLACK,
+                  asciimatics.screen.Screen.A_BOLD,
+                  asciimatics.screen.Screen.COLOUR_CYAN),
+        'focus_edit_text': (asciimatics.screen.Screen.COLOUR_BLACK,
+                            asciimatics.screen.Screen.A_BOLD,
+                            asciimatics.screen.Screen.COLOUR_CYAN),
+        'focus_field': (asciimatics.screen.Screen.COLOUR_BLACK,
+                        asciimatics.screen.Screen.A_BOLD,
+                        asciimatics.screen.Screen.COLOUR_CYAN),
+        'focus_button': (asciimatics.screen.Screen.COLOUR_BLACK,
+                         asciimatics.screen.Screen.A_BOLD,
+                         asciimatics.screen.Screen.COLOUR_YELLOW),
+        'focus_control': (asciimatics.screen.Screen.COLOUR_BLACK,
+                          asciimatics.screen.Screen.A_BOLD,
+                          asciimatics.screen.Screen.COLOUR_CYAN),
+        'disabled': (asciimatics.screen.Screen.COLOUR_BLACK,
+                     asciimatics.screen.Screen.A_BOLD,
+                     asciimatics.screen.Screen.COLOUR_CYAN),
+        'shadow': (asciimatics.screen.Screen.COLOUR_WHITE,
+                   None,
+                   asciimatics.screen.Screen.COLOUR_BLACK),
+    }
+)
+
 
 class cuiResourceEditor(asciimatics.widgets.Frame):
-    def __init__(self, screen, width, height, resource=None):
+    def __init__(self, screen, width=40, height=50, x=0, y=1, resource=None):
         """
         Constructor.
 
@@ -22,7 +56,12 @@ class cuiResourceEditor(asciimatics.widgets.Frame):
         :param resource: Resource data struct.
         """
         super(cuiResourceEditor, self).__init__(
-            screen, height, width, has_border=True, name='ResourceEditor')
+            screen, height, width,
+            x=x, y=y, has_border=True, name='ResourceEditor')
+
+        self.palette = DEFAULT_RESOURCE_EDITOR_THEME
+        if self._scroll_bar:
+            self._scroll_bar.palette = self.palette
 
         # Create the (very simple) form layout...
         layout = asciimatics.widgets.Layout([20], fill_frame=True)

@@ -32,7 +32,7 @@ class cuiPropertyEditor(asciimatics.widgets.MultiColumnListBox):
             height,
             [0, '>8', '>14'],
             [],
-            titles=['Name', 'Value', 'button'],
+            titles=['Name', 'Value', ''],
             name=name)
             # name=name,
             # on_select=self._on_selection if on_select is None else on_select,
